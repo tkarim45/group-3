@@ -1,0 +1,59 @@
+### Prompt 1
+
+"""
+    Given the following record:
+
+    {record.to_dict()}
+
+    Clean the record according to these instructions:
+    1. Address missing values: Infer or fill missing information (e.g., city from address or borough, use 'Unknown' for unresolvable fields).
+    2. Standardize text: Correct spelling and apply consistent capitalization. Ensure all text fields (e.g., 'borough', 'complaint_type', 'city', 'incident_address') are in title case (e.g., 'Brooklyn', 'Noise Complaint'). The 'borough' field must be one of 'Manhattan', 'Brooklyn', 'Bronx', 'Queens', 'Staten Island' and in title case.
+    3. Validate and format: Ensure addresses follow the format 'Street, Borough, NY' (with borough in title case) and dates/times follow ISO 8601 (e.g., '2023-01-01T12:00:00').
+    4. Categorize: Assign complaint descriptions to 'Noise' or 'Non-Noise' based on the descriptor or complaint_type (e.g., 'Loud Music' → 'Noise', 'Illegal Parking' → 'Non-Noise'). Add a 'category' field with the result.
+
+    Return the cleaned record as a dictionary with the same structure, updating only the necessary fields. Ensure the output is a valid JSON dictionary.
+"""
+
+### Prompt 2
+
+"""
+# Validation tests for cleaned NYC 311 record
+assert isinstance(record['created_date'], str), "created_date must be a string"
+assert record['created_date'] != '', "created_date cannot be empty"
+assert 'T' in record['created_date'], "created_date must be ISO 8601 format"
+
+if 'closed_date' in record and record['closed_date'] is not None:
+    assert isinstance(record['closed_date'], str), "closed_date must be a string"
+    assert 'T' in record['closed_date'], "closed_date must be ISO 8601 format"
+
+if 'incident_zip' in record and record['incident_zip'] is not None:
+    assert isinstance(record['incident_zip'], int), "incident_zip must be an integer"
+    assert 10000 <= record['incident_zip'] <= 11697, "incident_zip must be a valid NYC zip code"
+
+assert record['unique_key'] is not None, "unique_key cannot be null"
+assert record['created_date'] is not None, "created_date cannot be null"
+assert record['agency'] is not None, "agency cannot be null"
+assert record['complaint_type'] is not None, "complaint_type cannot be null"
+assert record['borough'] is not None, "borough cannot be null"
+assert record['status'] is not None, "status cannot be null"
+
+if 'latitude' in record and record['latitude'] is not None:
+    assert isinstance(record['latitude'], float), "latitude must be a float"
+    assert 40.5 <= record['latitude'] <= 40.9, "latitude must be within NYC's geographic bounds"
+
+if 'longitude' in record and record['longitude'] is not None:
+    assert isinstance(record['longitude'], float), "longitude must be a float"
+    assert -74.25 <= record['longitude'] <= -73.7, "longitude must be within NYC's geographic bounds"
+
+if 'incident_address' in record and record['incident_address'] and isinstance(record['incident_address'], str):
+    assert record['incident_address'].strip().endswith(', NY'), "incident_address must end with ', NY'"
+
+if 'complaint_type' in record and record['complaint_type']:
+    assert record['complaint_type'].title() == record['complaint_type'], "complaint_type must be in title case"
+
+if 'borough' in record and record['borough']:
+    assert record['borough'].title() == record['borough'], "borough must be in title case"
+
+if 'category' in record:
+    assert record['category'] in ['Noise', 'Non-Noise'], "category must be 'Noise' or 'Non-Noise'"
+"""
