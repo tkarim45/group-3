@@ -1,0 +1,38 @@
+
+1. cd <your-path>
+2.  python -m venv env
+3. source env/bin/activate
+4. pip install -r requirements.txt
+
+5. docker-compose -f zk-single-kafka.yml up -d
+6. docker-compose -f zk-single-kafka.yml ps
+
+7. docker exec -it kafka1 /bin/bash
+8. unset KAFKA_OPTS
+9. kafka-topics --version
+10. kafka-topics --create --topic traffic_data --bootstrap-server localhost:9092 --partitions 1 --replication-factor 1
+kafka-topics --create --topic volume_data --bootstrap-server localhost:9092 --partitions 1 --replication-factor 1
+kafka-topics --create --topic congestion_data --bootstrap-server localhost:9092 --partitions 1 --replication-factor 1
+kafka-topics --create --topic speed_avg_data --bootstrap-server localhost:9092 --partitions 1 --replication-factor 1
+kafka-topics --create --topic speed_drops_data --bootstrap-server localhost:9092 --partitions 1 --replication-factor 1
+kafka-topics --create --topic busiest_sensors_data --bootstrap-server localhost:9092 --partitions 1 --replication-factor 1
+
+11. kafka-topics --list --bootstrap-server localhost:9092
+12. exit
+
+13. python producer.py
+
+
+14. Open http://localhost:9090/targets
+15. Ensure the kafka job is scraping kafka1:7071 and is "UP".
+16. Query Kafka Metrics In Prometheus (http://localhost:9090), try: song_plays_total
+
+
+17. Go to http://localhost:3000 (default: admin/admin).
+18. Configuration > Data Sources > Add Prometheus (if not already done).
+19. URL: http://prometheus:9090.
+20. Save & Test.
+
+
+21. Create a New Dashboard: Click "+" > "Dashboard" > "Add a new panel".
+

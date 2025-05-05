@@ -1,0 +1,21 @@
+user_id,content_id,action,timestamp,device,region,session_id
+101,1001,play,2025-03-01 08:00:00,mobile,US,sess123
+102,1002,skip,2025-03-01 08:05:00,desktop,EU,sess456
+103,1003,pause,2025-03-01 08:10:00,tablet,APAC,sess789
+104,1004,play,2025-03-01 08:15:00,mobile,US,sess101
+105,1005,forward,2025-03-01 08:20:00,desktop,EU,sess102
+106,1006,play,2025-03-01 08:25:00,tablet,APAC,sess103
+107,1007,pause,2025-03-01 08:30:00,mobile,US,sess123
+108,1008,skip,2025-03-01 08:35:00,desktop,EU,sess456
+109,1009,play,2025-03-01 08:40:00,tablet,APAC,sess789
+110,1010,forward,2025-03-01 08:45:00,mobile,US,sess101
+111,1001,play,2025-03-01 09:00:00,desktop,EU,sess102
+112,1002,pause,2025-03-01 09:05:00,tablet,APAC,sess103
+113,1003,skip,2025-03-01 09:10:00,mobile,US,sess123
+114,1004,play,2025-03-01 09:15:00,desktop,EU,sess456
+115,1005,forward,2025-03-01 09:20:00,tablet,APAC,sess789
+116,1006,pause,2025-03-01 09:25:00,mobile,US,sess101
+117,1007,play,2025-03-01 09:30:00,desktop,EU,sess102
+118,1008,skip,2025-03-01 09:35:00,tablet,APAC,sess103
+119,1009,forward,2025-03-01 09:40:00,mobile,US,sess123
+120,1010,play,2025-03-01 09:45:00,desktop,EU,sess456
